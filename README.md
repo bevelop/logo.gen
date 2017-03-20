@@ -9,34 +9,35 @@ LogoGen consists of a core .Net class library that can be used in your code dire
 To create and individual image, use `LogoGenerator.Generate()`:
 
 ```Csharp
-var bitmap = new LogoGenerator().Generate(new LogoSettings {
-   SvgPath = "C:\Temp\logo.svg",     // the source SVG
-   Width = 1280,                     // target PNG width
-   Height = 720,                     // target PNG height
-   Scale = 0.6,                      // scale down factor for the source
-   BackgroundColor = Color.White     // background color (can be transparent)
-   SaveOutputFile = true             // Set to true if the result should be exported to file
-   OutputPath = "C:\Temp\target.png" // Only used if SaveOutputFile is true
-});
+var bitmap = new LogoGenerator().Generate(new LogoSettings(
+    svgPath: "C:\\Temp\\logo.svg",     // the source SVG
+    width: 1280,                       // target PNG width
+    height: 720,                       // target PNG height
+    scale: 0.6f,                       // scale down factor for the source
+    backgroundColor: Color.White,      // background color (can be transparent)
+    saveOutputFile: true,              // Set to true if the result should be exported to file
+    outputPath: "C:\\Temp\\target.png" // Only used if SaveOutputFile is true
+));
 ```
 
 To create a batch of images, use `LogoGenerator.GenerateBatch()`:
 
 ```Csharp
-var itemSettings = new [] {
-    new BatchItemSettings(1024, 768, "C:\Temp\splash1.png"),
-    new BatchItemSettings(1920, 1080, "C:\Temp\splash2.png"),
-    new BatchItemSettings(100, 100, "C:\Temp\icon1.png", 1.0, Color.Transparent),
-    new BatchItemSettings(192, 192, "C:\Temp\icon2.png", 1.0, Color.Transparent)
+var itemSettings = new[] {
+    new BatchItemSettings(1024, 768, "C:\\Temp\\splash1.png"),
+    new BatchItemSettings(1920, 1080, "C:\\Temp\\splash2.png"),
+    new BatchItemSettings(100, 100, "C:\\Temp\\icon1.png", 1.0f, Color.Transparent),
+    new BatchItemSettings(192, 192, "C:\\Temp\\icon2.png", 1.0f, Color.Transparent)
 };
 
 var batchSettings = new BatchSettings(
-    "C:\Temp\logo.svg",
-    0.6,
-    Color.White,
-    itemSettings);
+    svgPath: "C:\\Temp\\logo.svg",
+    scale: 0.6f,
+    backgroundColor: Color.White,
+    itemSettings: itemSettings,
+    saveOutputFiles: true);
 
-var batchResults = new LogoGenerator.GenerateBatch(batchSettings);
+var batchResults = new LogoGenerator().GenerateBatch(batchSettings);
 ```
 
 The batch uses a single SVG and has default `Scale` and `Background Color` for the entire batch. For each item in the batch you need to specify the target PNG path and width/height, however you can optionally specify an override for the scale and color if you want.
