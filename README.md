@@ -42,7 +42,7 @@ var batchResults = new LogoGenerator().GenerateBatch(batchSettings);
 
 The batch uses a single SVG and has default `Scale` and `Background Color` for the entire batch. For each item in the batch you need to specify the target PNG path and width/height, however you can optionally specify an override for the scale and color if you want.
 
-The result is a collection of objects with a `Succeeded` and an `Exception` (if any occurred) per item.
+The result is a collection of objects with a `Bitmap`, a `Succeeded` flag, and an `Exception` (if any occurred) per item.
 
 ## The Console Application
 
