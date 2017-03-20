@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoGen", "LogoGen\LogoGen.csproj", "{A22E13BF-B18C-4A36-A4B9-C81F86EDD54C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoGen.Console", "LogoGen.Console\LogoGen.Console.csproj", "{2AEEBAAA-7BA6-452B-AB54-609AB4250507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogoGen.Gui", "LogoGen.Gui\LogoGen.Gui.csproj", "{2540C6D2-6D50-4EF2-92C8-F66ED2A14E79}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A22E13BF-B18C-4A36-A4B9-C81F86EDD54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22E13BF-B18C-4A36-A4B9-C81F86EDD54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22E13BF-B18C-4A36-A4B9-C81F86EDD54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22E13BF-B18C-4A36-A4B9-C81F86EDD54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AEEBAAA-7BA6-452B-AB54-609AB4250507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEEBAAA-7BA6-452B-AB54-609AB4250507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEEBAAA-7BA6-452B-AB54-609AB4250507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEEBAAA-7BA6-452B-AB54-609AB4250507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2540C6D2-6D50-4EF2-92C8-F66ED2A14E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2540C6D2-6D50-4EF2-92C8-F66ED2A14E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2540C6D2-6D50-4EF2-92C8-F66ED2A14E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2540C6D2-6D50-4EF2-92C8-F66ED2A14E79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
