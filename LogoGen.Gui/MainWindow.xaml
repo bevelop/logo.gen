@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1280">
+        Title="LogoGen" Height="768" Width="1280">
     <Window.Resources>
     </Window.Resources>
     <StackPanel Margin="10">
