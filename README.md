@@ -46,10 +46,34 @@ The result is a collection of objects with a `Bitmap`, a `Succeeded` flag, and a
 
 ## The Console Application
 
-The console is a very thin wrapper for the batch generator above. You pass it a settings file which needs to be a JSON represenation of the `BatchSettings` object:
+The console is a very thin wrapper for the batch generator above:
 
 ```cmd
 C:\LogoGen\bin>LogoGen.Console.exe "C:\Temp\BatchSettings.json"
+```
+
+The settings file is just a JSON represenation of the `BatchSettings` object:
+
+```json
+{
+    "svgPath": "C:\\Temp\\logo.svg",
+    "scale": 0.6,
+    "backgroundColor": "100, 255, 255, 255",
+    "saveOutputFiles": true,
+    "itemSettings": [
+    {
+        "width": 1024,
+        "height": 768,
+        "outputPath": "C:\\Temp\\splash1.png"
+    },
+    {
+        "width": 192,
+        "height": 192,
+        "outputPath": "C:\\Temp\\icon1.png",
+        "scale": 1.0,
+        "backgroundColor": "Transparent"
+    }]
+}
 ```
 
 ## The GUI
