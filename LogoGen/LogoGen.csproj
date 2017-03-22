@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Rendering\GenericBoundable.cs" />
     <Compile Include="Results\BatchResult.cs" />
     <Compile Include="Settings\BatchItemSettings.cs" />
     <Compile Include="Settings\BatchSettings.cs" />

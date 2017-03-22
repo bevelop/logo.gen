@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using LogoGen.Rendering;
 using LogoGen.Results;
 using LogoGen.Settings;
 using Newtonsoft.Json;
@@ -18,7 +20,7 @@ namespace LogoGen
             var svg = SvgDocument.Open(settings.SvgPath);
 
             var logoSize = GetLogoSize(svg, settings);
-            var logoImage = svg.Draw(logoSize.Width, logoSize.Height);
+            var logoImage = RenderWholeSvgToBitmap(svg, logoSize);
 
             var finalLogo = new Bitmap(settings.Width, settings.Height, PixelFormat.Format32bppArgb);
             using (var gfx = Graphics.FromImage(finalLogo))
@@ -78,22 +80,38 @@ namespace LogoGen
 
         static Size GetLogoSize(SvgDocument svg, LogoSettings settings)
         {
-            if (svg.Width.Value / settings.Width > svg.Height.Value / settings.Height)
+            var svgWidth = svg.ViewBox.Width;
+            var svgHeight = svg.ViewBox.Height;
+
+            if (svgWidth / settings.Width > svgHeight / settings.Height)
             {
                 var newWidth = settings.Width * settings.Scale;
-                var widthRatio = newWidth / svg.Width.Value;
-                var newHeight = widthRatio * svg.Height.Value;
+                var widthRatio = newWidth / svgWidth;
+                var newHeight = widthRatio * svgHeight;
 
                 return new Size((int) Math.Round(newWidth), (int) Math.Round(newHeight));
             }
             else
             {
                 var newHeight = settings.Height * settings.Scale;
-                var heightRatio = newHeight / svg.Height.Value;
-                var newWidth = heightRatio * svg.Width.Value;
+                var heightRatio = newHeight / svgHeight;
+                var newWidth = heightRatio * svgWidth;
 
                 return new Size((int)Math.Round(newWidth), (int)Math.Round(newHeight));
             }
+        }
+
+        static Bitmap RenderWholeSvgToBitmap(SvgDocument svg, Size size)
+        {
+            var bitmap = new Bitmap(size.Width, size.Height);
+            var svgRenderer = SvgRenderer.FromImage(bitmap);
+            svgRenderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
+            var svgDim = svg.GetDimensions();
+            svgRenderer.ScaleTransform(bitmap.Width / svgDim.Width, bitmap.Height / svgDim.Height);
+
+            svg.Draw(svgRenderer);
+
+            return bitmap;
         }
     }
 }
