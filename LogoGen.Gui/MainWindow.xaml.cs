@@ -30,7 +30,7 @@ namespace LogoGen.Gui
 
         void LoadSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            var path = GetFilePath("json");
+            var path = GetOpenFilePath("json");
             if (path == null) return;
 
             ReadSettings(path);
@@ -38,7 +38,7 @@ namespace LogoGen.Gui
 
         void SaveSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            var path = GetFilePath("json");
+            var path = GetSaveFilePath("json");
             if (path == null) return;
 
             WriteSettings(path);
@@ -46,7 +46,7 @@ namespace LogoGen.Gui
 
         void BrowseSvg_OnClick(object sender, RoutedEventArgs e)
         {
-            var path = GetFilePath("svg");
+            var path = GetOpenFilePath("svg");
             if (path == null) return;
 
             SvgPath.Text = path;
@@ -69,7 +69,7 @@ namespace LogoGen.Gui
         {
             var button = (Button) sender;
 
-            var path = GetFilePath("png");
+            var path = GetOpenFilePath("png");
             if (path == null) return;
 
             var settings = (BatchItemSettingsViewModel)button.DataContext;
@@ -128,9 +128,21 @@ namespace LogoGen.Gui
             return batchSettings;
         }
 
-        string GetFilePath(string fileType)
+        string GetOpenFilePath(string fileType)
         {
             var dialog = new OpenFileDialog
+            {
+                DefaultExt = $".{fileType}",
+                Filter = $"{fileType.ToUpper()} Files (*.{fileType})|*.{fileType}",
+                CheckFileExists = false
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
+        }
+
+        string GetSaveFilePath(string fileType)
+        {
+            var dialog = new SaveFileDialog
             {
                 DefaultExt = $".{fileType}",
                 Filter = $"{fileType.ToUpper()} Files (*.{fileType})|*.{fileType}",
