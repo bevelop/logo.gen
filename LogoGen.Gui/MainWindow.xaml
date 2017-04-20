@@ -23,6 +23,8 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0">SVG File</Label>
@@ -33,13 +35,20 @@
             <xctk:SingleUpDown x:Name="DefaultScale" Grid.Row="1" Grid.Column="1" Value="1" Increment="0.01"></xctk:SingleUpDown>
 
             <Label Grid.Row="2" Grid.Column="0">Default Background Color</Label>
-            <xctk:ColorPicker x:Name="DefaultBackgroundColor"  Grid.Row="2" Grid.Column="1" />
+            <xctk:ColorPicker x:Name="DefaultBackgroundColor" Grid.Row="2" Grid.Column="1" />
+
+            <Label Grid.Row="3" Grid.Column="0">Background Image</Label>
+            <TextBox x:Name="BackgroundImage" Grid.Row="3" Grid.Column="1"></TextBox>
+            <Button Grid.Row="3" Grid.Column="2" Width="100" HorizontalAlignment="Left" Margin="10 0 0 0" Click="BrowseBackground_OnClick">Browse...</Button>
+
+            <Label Grid.Row="4" Grid.Column="0">Output Bit Depth</Label>
+            <ComboBox x:Name="OutputBitDepth" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding BitDepthOptions}" SelectedValue="{Binding SelectedBitDepth}" />
         </Grid>
 
         <Label Margin="0 30 0 0">Output</Label>
 
         <Border BorderThickness="1" BorderBrush="LightGray">
-            <ScrollViewer Height="400" MaxHeight="400">
+            <ScrollViewer Height="400" MaxHeight="350">
                 <ItemsControl Grid.IsSharedSizeScope="True" x:Name="ItemSettings"  ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -71,7 +80,7 @@
             </ScrollViewer>
         </Border>
         <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="0 10" Click="AddItem_OnClick">Add</Button>
-        <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="0 10" Click="Generate_OnClick">Generate</Button>
+        <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="0" Click="Generate_OnClick">Generate</Button>
         <Label x:Name="Errors"></Label>
     </StackPanel>
 </Window>

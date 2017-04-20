@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace LogoGen.Gui
     public partial class MainWindow : Window
     {
         ObservableCollection<BatchItemSettingsViewModel> _items;
+        //ObservableCollection<BitDepth> BitDepthOptions = new ObservableCollection<BitDepth>(new []{BitDepth.Rgb16, BitDepth.Rgb24, BitDepth.Rgba32});
+        BitDepth SelectedBitDepth;
 
         public MainWindow()
         {
@@ -26,6 +29,7 @@ namespace LogoGen.Gui
             _items = new ObservableCollection<BatchItemSettingsViewModel>();
 
             ItemSettings.ItemsSource = _items;
+            OutputBitDepth.ItemsSource = Enum.GetValues(typeof(BitDepth)).Cast<BitDepth>();
         }
 
         void LoadSettings_OnClick(object sender, RoutedEventArgs e)
@@ -50,6 +54,14 @@ namespace LogoGen.Gui
             if (path == null) return;
 
             SvgPath.Text = path;
+        }
+
+        void BrowseBackground_OnClick(object sender, RoutedEventArgs e)
+        {
+            var path = GetOpenFilePath("png");
+            if (path == null) return;
+
+            BackgroundImage.Text = path;
         }
 
         void AddItem_OnClick(object sender, RoutedEventArgs e)
@@ -102,6 +114,8 @@ namespace LogoGen.Gui
 
             DefaultScale.Value = settings.Scale;
             SvgPath.Text = settings.SvgPath;
+            BackgroundImage.Text = settings.BackgroundImage;
+            OutputBitDepth.SelectedValue = settings.OutputBitDepth;
 
             _items = new ObservableCollection<BatchItemSettingsViewModel>(
                 settings.ItemSettings.Select(s => new BatchItemSettingsViewModel(s)));
@@ -122,7 +136,12 @@ namespace LogoGen.Gui
         {
             var mediaColor = DefaultBackgroundColor.SelectedColor ?? Colors.Transparent;
             var color = Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
-            var batchSettings = new BatchSettings(SvgPath.Text, DefaultScale.Value ?? 1.0f, color, true,
+            var batchSettings = new BatchSettings(
+                SvgPath.Text,
+                DefaultScale.Value ?? 1.0f, color,
+                string.IsNullOrWhiteSpace(BackgroundImage.Text) ? null : BackgroundImage.Text,
+                true,
+                (BitDepth)OutputBitDepth.SelectedValue,
                 _items.Select(i => i.Settings).ToArray());
 
             return batchSettings;
