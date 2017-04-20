@@ -10,13 +10,15 @@ To create and individual image, use `LogoGenerator.Generate()`:
 
 ```Csharp
 var bitmap = new LogoGenerator().Generate(new LogoSettings(
-    svgPath: "C:\\Temp\\logo.svg",     // the source SVG
-    width: 1280,                       // target PNG width
-    height: 720,                       // target PNG height
-    scale: 0.6f,                       // scale down factor for the source
-    backgroundColor: Color.White,      // background color (can be transparent)
-    saveOutputFile: true,              // Set to true if the result should be exported to file
-    outputPath: "C:\\Temp\\target.png" // Only used if SaveOutputFile is true
+    svgPath: "C:\\Temp\\logo.svg",      // the source SVG
+    width: 1280,                        // target PNG width
+    height: 720,                        // target PNG height
+    scale: 0.6f,                        // scale down factor for the source
+    backgroundColor: Color.White,       // background color (can be transparent)
+    backgroundImage: "C:\\Temp\\backg.png", // background image (optional) 
+    saveOutputFile: true,               // Set to true if the result should be exported to file
+    outputPath: "C:\\Temp\\target.png", // Only used if SaveOutputFile is true
+    outputBitDepth: BitDepth.Rgb24      // Bit depth of the output. It can be 16, 24 or 32 bit
 ));
 ```
 
@@ -34,8 +36,10 @@ var batchSettings = new BatchSettings(
     svgPath: "C:\\Temp\\logo.svg",
     scale: 0.6f,
     backgroundColor: Color.White,
+    backgroundImage: "C:\\Temp\\backg.png",
     itemSettings: itemSettings,
-    saveOutputFiles: true);
+    saveOutputFiles: true,
+    outputBitDepth: BitDepth.Rgb24);
 
 var batchResults = new LogoGenerator().GenerateBatch(batchSettings);
 ```
@@ -59,7 +63,9 @@ The settings file is just a JSON represenation of the `BatchSettings` object:
     "svgPath": "C:\\Temp\\logo.svg",
     "scale": 0.6,
     "backgroundColor": "100, 255, 255, 255",
+    "backgroundImage": "C:\\Temp\\backg.png",
     "saveOutputFiles": true,
+    "outputBitDepth": 1,
     "itemSettings": [
     {
         "width": 1024,
